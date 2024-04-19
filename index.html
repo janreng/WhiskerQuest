@@ -4,27 +4,39 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Whisker Quest</title>
-	<script src="https://telegram.org/js/telegram-web-app.js"></script>
-  </head>
-  <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=382 height=582 tabindex="-1" style="width: 382px; height: 582px; background: #231F20"></canvas>
-    <script src="Build/WhiskerQuest.loader.js"></script>
-    <script>
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas:
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
-
-        var canvas = document.querySelector("#unity-canvas");
-        canvas.style.width = "100%";
-        canvas.style.height = "100%";
-        canvas.style.position = "fixed";
-
-        document.body.style.textAlign = "left";
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+      #unity-canvas {
+        width: 100vw;
+        height: 100vh;
+        background: #231F20;
       }
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Không hiển thị thanh cuộn */
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+    <script>
+	
+		window.Telegram.WebApp.isExpanded = true;
+      // Chờ đợi tất cả nội dung được tải xong trước khi thực hiện các thay đổi kích thước
+      window.onload = function() {
+        resizeCanvas(); // Thực hiện lần đầu tiên để đảm bảo kích thước đúng
+        window.addEventListener('resize', resizeCanvas);
+      };
 
+      function resizeCanvas() {
+        var canvas = document.getElementById('unity-canvas');
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+      }
+      
       createUnityInstance(document.querySelector("#unity-canvas"), {
         dataUrl: "Build/WhiskerQuest.data.unityweb",
         frameworkUrl: "Build/WhiskerQuest.framework.js.unityweb",
