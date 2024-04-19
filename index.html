@@ -5,38 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Whisker Quest</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-      #unity-canvas {
-        width: 100vw;
-        height: 100vh;
-        background: #231F20;
-      }
-      body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden; /* Không hiển thị thanh cuộn */
-      }
-    </style>
   </head>
   <body>
     <canvas id="unity-canvas" tabindex="-1"></canvas>
     <script>
-	
 		window.Telegram.WebApp.isExpanded = true;
 		window.Telegram.WebApp.expand();
-      // Chờ đợi tất cả nội dung được tải xong trước khi thực hiện các thay đổi kích thước
-      window.onload = function() {
-        resizeCanvas(); // Thực hiện lần đầu tiên để đảm bảo kích thước đúng
-        window.addEventListener('resize', resizeCanvas);
-      };
-
-      function resizeCanvas() {
-        var canvas = document.getElementById('unity-canvas');
-        var width = window.innerWidth;
-        var height = window.innerHeight;
-        canvas.width = width;
-        canvas.height = height;
-      }
       
       createUnityInstance(document.querySelector("#unity-canvas"), {
         dataUrl: "Build/WhiskerQuest.data.unityweb",
